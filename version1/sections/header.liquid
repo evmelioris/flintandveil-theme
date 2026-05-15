@@ -1,0 +1,58 @@
+{% comment %}
+  Flint & Veil — Header Section
+  File: sections/header.liquid
+{% endcomment %}
+
+<header class="site-header" role="banner">
+  <div class="page-width">
+    <div class="site-header__inner">
+
+      <a href="{{ routes.root_url }}" class="site-header__logo">
+        {{ shop.name }}
+      </a>
+
+      <nav role="navigation" aria-label="Main menu">
+        <ul class="site-nav">
+          <li class="site-nav__item"><a href="/collections/all">Shop</a></li>
+          <li class="site-nav__item"><a href="/collections/recovery">Recovery</a></li>
+          <li class="site-nav__item"><a href="/collections/supplements">Supplements</a></li>
+          <li class="site-nav__item"><a href="/collections/gear">Gear</a></li>
+          <li class="site-nav__item"><a href="/pages/our-story">Our Story</a></li>
+        </ul>
+      </nav>
+
+      <div class="site-header__icons">
+        <a href="{{ routes.account_url }}" class="site-header__icon" aria-label="Account">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </a>
+        <button class="site-header__icon" aria-label="Search" onclick="document.querySelector('.search-modal').classList.toggle('open')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+          </svg>
+        </button>
+        <button class="site-header__icon" aria-label="Cart" onclick="document.querySelector('.cart-drawer').classList.toggle('open'); document.querySelector('.cart-drawer__overlay').classList.toggle('open')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          {%- if cart.item_count > 0 -%}
+            <span class="cart-count">{{ cart.item_count }}</span>
+          {%- endif -%}
+        </button>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": []
+}
+{% endschema %}

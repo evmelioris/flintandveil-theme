@@ -1,0 +1,108 @@
+{% comment %}
+  Flint & Veil — Featured Products Section
+  File: sections/featured-products.liquid
+{% endcomment %}
+
+<section class="section-padding bg-parchment">
+  <div class="page-width">
+
+    <div class="section-heading">
+      <span class="eyebrow">{{ section.settings.eyebrow | default: 'The Collection' }}</span>
+      <h2>{{ section.settings.heading | default: 'Built for After' }}</h2>
+      <p>{{ section.settings.subheading | default: 'Everything you need for the recovery that follows the effort.' }}</p>
+    </div>
+
+    <div class="product-grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'product' and block.settings.product != blank -%}
+          {%- assign product = block.settings.product -%}
+          <div class="product-card" {{ block.shopify_attributes }}>
+            <a href="{{ product.url }}">
+              <div class="product-card__media">
+                {%- if product.featured_image -%}
+                  {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy' }}
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag }}
+                {%- endif -%}
+                {%- if block.settings.badge != blank -%}
+                  <span class="product-card__badge product-card__badge--{{ block.settings.badge_style | default: 'new' }}">
+                    {{ block.settings.badge }}
+                  </span>
+                {%- endif -%}
+              </div>
+            </a>
+            <div class="product-card__body">
+              <p class="product-card__category">{{ product.type }}</p>
+              <h3 class="product-card__title">
+                <a href="{{ product.url }}">{{ product.title }}</a>
+              </h3>
+              <p class="product-card__desc">{{ product.description | strip_html | truncate: 80 }}</p>
+              <div class="product-card__footer">
+                <span class="product-card__price">
+                  {%- if product.compare_at_price > product.price -%}
+                    <s>{{ product.compare_at_price | money }}</s>
+                  {%- endif -%}
+                  {{ product.price | money }}
+                </span>
+                <button
+                  class="product-card__add"
+                  aria-label="Add {{ product.title }} to cart"
+                  data-product-id="{{ product.variants.first.id }}"
+                  onclick="addToCart(this)"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.cta_label != blank -%}
+      <div class="text-center" style="margin-top: 3rem;">
+        <a href="{{ section.settings.cta_url | default: '/collections/all' }}" class="btn btn--primary">
+          {{ section.settings.cta_label }}
+        </a>
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Products",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Collection" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Built for After" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Everything you need for the recovery that follows the effort." },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "View All Products" },
+    { "type": "url", "id": "cta_url", "label": "Button URL" }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "text", "id": "badge", "label": "Badge text (optional)" },
+        {
+          "type": "select",
+          "id": "badge_style",
+          "label": "Badge style",
+          "options": [
+            { "value": "new", "label": "New (green)" },
+            { "value": "bestseller", "label": "Bestseller (rose)" }
+          ],
+          "default": "new"
+        }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Featured Products" }]
+}
+{% endschema %}

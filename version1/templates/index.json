@@ -1,0 +1,31 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow": "Outdoor Recovery",
+        "heading": "<p>For What Comes After.</p>",
+        "subheading": "Recovery supplements, topicals, and gear built for people who earn their rest.",
+        "cta_label": "Shop the Collection",
+        "cta_url": "/collections/all",
+        "secondary_label": "Our Story",
+        "secondary_url": "/pages/our-story"
+      }
+    },
+    "featured-products": {
+      "type": "featured-products",
+      "blocks": {},
+      "settings": {
+        "eyebrow": "The Collection",
+        "heading": "Built for After",
+        "subheading": "Everything you need for the recovery that follows the effort.",
+        "cta_label": "View All Products",
+        "cta_url": "/collections/all"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "featured-products"
+  ]
+}

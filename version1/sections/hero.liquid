@@ -1,0 +1,94 @@
+{% comment %}
+  Flint & Veil — Hero Section
+  File: sections/hero.liquid
+{% endcomment %}
+
+<section class="hero">
+  <div class="hero__media">
+    {%- if section.settings.image != blank -%}
+      {{ section.settings.image | image_url: width: 1920 | image_tag: loading: 'eager', fetchpriority: 'high' }}
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'hero__placeholder' }}
+    {%- endif -%}
+  </div>
+  <div class="hero__overlay"></div>
+
+  <div class="page-width">
+    <div class="hero__content">
+      <span class="hero__eyebrow">{{ section.settings.eyebrow | default: 'Outdoor Recovery' }}</span>
+      <h1 class="hero__title">
+        {{ section.settings.heading | default: 'For What Comes <em>After.</em>' }}
+      </h1>
+      <p class="hero__subtitle">
+        {{ section.settings.subheading | default: 'Recovery supplements, topicals, and gear built for people who earn their rest.' }}
+      </p>
+      <div class="hero__actions">
+        <a href="{{ section.settings.cta_url | default: '/collections/all' }}" class="btn btn--primary">
+          {{ section.settings.cta_label | default: 'Shop the Collection' }}
+        </a>
+        <a href="{{ section.settings.secondary_url | default: '/pages/our-story' }}" class="btn btn--outline-light">
+          {{ section.settings.secondary_label | default: 'Our Story' }}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Outdoor Recovery"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>For What Comes <em>After.</em></p>"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Recovery supplements, topicals, and gear built for people who earn their rest."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Primary button label",
+      "default": "Shop the Collection"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Primary button URL"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary button label",
+      "default": "Our Story"
+    },
+    {
+      "type": "url",
+      "id": "secondary_url",
+      "label": "Secondary button URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,288 @@
+{% comment %}
+  Flint & Veil — Our Story Section
+  File: sections/our-story.liquid
+{% endcomment %}
+
+<div class="our-story">
+
+  <!-- HERO STATEMENT -->
+  <section class="our-story__hero">
+    <div class="our-story__hero-inner page-width">
+      <span class="eyebrow">Our Mission</span>
+      <h1 class="our-story__title">Built for the moment<br><em>after the effort.</em></h1>
+      <p class="our-story__lead">Most wellness brands sell you energy. We sell you recovery. There's a difference — and we think it matters.</p>
+    </div>
+  </section>
+
+  <!-- MISSION BLOCK -->
+  <section class="our-story__mission section-padding">
+    <div class="page-width">
+      <div class="our-story__mission-grid">
+
+        <div class="our-story__mission-text">
+          <span class="eyebrow">What We Stand For</span>
+          <h2>Recovery isn't a reward.<br>It's a practice.</h2>
+          <p>The outdoor wellness space is full of brands that want to pump you up before the trail. We exist for what comes after — when your body needs real support, not another stimulant.</p>
+          <p>Flint & Veil was built around a simple belief: the people who push hardest deserve products that work just as hard in return. Clean ingredients. Honest formulations. No fluff.</p>
+          <div class="our-story__values">
+            <div class="our-story__value">
+              <span class="our-story__value-label">Clean</span>
+              <p>No artificial fillers, colors, or proprietary blends. What's on the label is what's in the product.</p>
+            </div>
+            <div class="our-story__value">
+              <span class="our-story__value-label">Earned</span>
+              <p>Our products are for people who've put in the work. Recovery is part of the effort.</p>
+            </div>
+            <div class="our-story__value">
+              <span class="our-story__value-label">Grounded</span>
+              <p>Georgia-based, hemp-compliant, and rooted in the outdoor community we come from.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="our-story__mission-aside">
+          <div class="our-story__pull-quote">
+            <blockquote>
+              "The trail doesn't care how prepared you were. Recovery is where you get ready for the next one."
+            </blockquote>
+            <cite>— Flint & Veil</cite>
+          </div>
+          <div class="our-story__stat-grid">
+            <div class="our-story__stat">
+              <span class="our-story__stat-num">4</span>
+              <span class="our-story__stat-label">Launch SKUs</span>
+            </div>
+            <div class="our-story__stat">
+              <span class="our-story__stat-num">0</span>
+              <span class="our-story__stat-label">Artificial fillers</span>
+            </div>
+            <div class="our-story__stat">
+              <span class="our-story__stat-num">1</span>
+              <span class="our-story__stat-label">Clear mission</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="our-story__cta">
+    <div class="page-width">
+      <div class="our-story__cta-inner">
+        <span class="eyebrow">Ready?</span>
+        <h2>For what comes after.</h2>
+        <a href="/collections/all" class="btn btn--accent">Shop the Collection</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<style>
+.our-story__hero {
+  background: var(--color-deep-moss);
+  padding: 7rem 0 5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.our-story__hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 20% 50%, rgba(45,79,56,0.6) 0%, transparent 70%);
+}
+
+.our-story__hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+}
+
+.our-story__hero .eyebrow {
+  color: var(--color-rose-light);
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+.our-story__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 5vw, 4.2rem);
+  font-weight: 500;
+  color: var(--color-warm-white);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.our-story__title em {
+  font-style: italic;
+  color: var(--color-rose-light);
+}
+
+.our-story__lead {
+  font-size: 1.15rem;
+  color: var(--color-mist);
+  line-height: 1.8;
+  max-width: 520px;
+  margin: 0;
+}
+
+.our-story__mission {
+  background: var(--color-warm-white);
+}
+
+.our-story__mission-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.our-story__mission-text .eyebrow {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.our-story__mission-text h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  color: var(--color-charcoal);
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.our-story__mission-text p {
+  font-size: 1rem;
+  color: var(--color-slate);
+  line-height: 1.8;
+  margin-bottom: 1.25rem;
+}
+
+.our-story__values {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--color-mist);
+}
+
+.our-story__value-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-forest);
+  margin-bottom: 0.4rem;
+}
+
+.our-story__value p {
+  font-size: 0.9rem;
+  color: var(--color-slate);
+  margin: 0;
+  line-height: 1.7;
+}
+
+.our-story__mission-aside {
+  position: sticky;
+  top: 100px;
+}
+
+.our-story__pull-quote {
+  background: var(--color-deep-moss);
+  border-radius: var(--radius-md);
+  padding: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.our-story__pull-quote blockquote {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--color-mist);
+  line-height: 1.7;
+  margin: 0 0 1rem;
+}
+
+.our-story__pull-quote cite {
+  font-size: 0.8rem;
+  color: var(--color-rose-light);
+  font-style: normal;
+  letter-spacing: 0.08em;
+}
+
+.our-story__stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.our-story__stat {
+  background: var(--color-parchment);
+  border: 1px solid var(--color-mist);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1rem;
+  text-align: center;
+}
+
+.our-story__stat-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 500;
+  color: var(--color-forest);
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.our-story__stat-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-slate);
+}
+
+.our-story__cta {
+  background: var(--color-charcoal);
+  padding: 6rem 0;
+  text-align: center;
+}
+
+.our-story__cta-inner .eyebrow {
+  display: block;
+  margin-bottom: 1rem;
+  color: var(--color-rose-light);
+}
+
+.our-story__cta h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--color-warm-white);
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+@media (max-width: 860px) {
+  .our-story__mission-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .our-story__mission-aside {
+    position: static;
+  }
+  .our-story__stat-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Our Story",
+  "settings": []
+}
+{% endschema %}

@@ -8,10 +8,10 @@
     {%- if section.settings.image != blank -%}
       {{ section.settings.image | image_url: width: 1920 | image_tag: loading: 'eager', fetchpriority: 'high' }}
     {%- else -%}
-      {{ 'lifestyle-1' | placeholder_svg_tag: 'hero__placeholder' }}
+      <img src="{{ 'flintandveil-hero-bg.svg' | asset_url }}" alt="Flint and Veil botanical background" class="hero__bg-svg">
     {%- endif -%}
   </div>
-  <div class="hero__overlay"></div>
+<div class="hero__overlay"></div>
 
   <div class="page-width">
     <div class="hero__content">

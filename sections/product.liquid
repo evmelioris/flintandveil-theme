@@ -5,41 +5,102 @@
   https://shopify.dev/docs/storefronts/themes/architecture/templates/product
 {% endcomment %}
 
-<div class="product-images">
-  {% for image in product.images %}
-    {% render 'image', class: 'product-image', image: image %}
-  {% endfor %}
-</div>
+<section class="product-page">
+  <div class="page-width">
+    <div class="product-page__grid">
 
-<div class="product-info">
-  <h1>{{ product.title }}</h1>
-  <p>{{ product.price | money }}</p>
-  <p>{{ product.description }}</p>
-</div>
+      <div class="product-page__gallery">
+        <div class="product-page__main-image">
+          {%- if product.featured_image -%}
+            {{ product.featured_image | image_url: width: 800 | image_tag: alt: product.title }}
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag }}
+          {%- endif -%}
+        </div>
 
-<div class="product-form">
-  {% form 'product', product %}
-    {% assign current_variant = product.selected_or_first_available_variant %}
+        {%- if product.images.size > 1 -%}
+          <div class="product-page__thumbnails">
+            {%- for image in product.images -%}
+              <button
+                type="button"
+                class="product-page__thumb{% if image == product.featured_image %} active{% endif %}"
+                aria-label="View image {{ forloop.index }}"
+              >
+                {{ image | image_url: width: 100 | image_tag: loading: 'lazy', alt: product.title }}
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
 
-    <select name="id">
-      {% for variant in product.variants %}
-        <option
-          value="{{ variant.id }}"
-          {% if variant == current_variant %}
-            selected="selected"
-          {% endif %}
-        >
-          {{ variant.title }} - {{ variant.price | money }}
-        </option>
-      {% endfor %}
-    </select>
+      <div class="product-page__info">
+        {%- if product.type != blank -%}
+          <p class="product-page__category">{{ product.type }}</p>
+        {%- endif -%}
 
-    <input type="text" name="quantity" min="1" value="1">
+        <h1 class="product-page__title">{{ product.title }}</h1>
 
-    <input type="submit" value="Add to cart">
-    {{ form | payment_button }}
-  {% endform %}
-</div>
+        <p class="product-page__price">
+          {%- if product.compare_at_price > product.price -%}
+            <s>{{ product.compare_at_price | money }}</s>
+          {%- endif -%}
+          {{ product.price | money }}
+        </p>
+
+        <div class="product-page__divider"></div>
+
+        {%- if product.description != blank -%}
+          <div class="product-page__desc">{{ product.description }}</div>
+        {%- endif -%}
+
+        {% form 'product', product %}
+          {%- assign current_variant = product.selected_or_first_available_variant -%}
+
+          {%- if product.has_only_default_variant == false -%}
+            <select name="id" class="product-page__variant">
+              {%- for variant in product.variants -%}
+                <option
+                  value="{{ variant.id }}"
+                  {% if variant == current_variant %}selected="selected"{% endif %}
+                  {% unless variant.available %}disabled{% endunless %}
+                >
+                  {{ variant.title }} - {{ variant.price | money }}
+                </option>
+              {%- endfor -%}
+            </select>
+          {%- else -%}
+            <input type="hidden" name="id" value="{{ current_variant.id }}">
+          {%- endif -%}
+
+          <div class="product-page__atc">
+            <button
+              type="submit"
+              class="btn btn--primary"
+              {% unless current_variant.available %}disabled{% endunless %}
+            >
+              {%- if current_variant.available -%}Add to cart{%- else -%}Sold out{%- endif -%}
+            </button>
+            {{ form | payment_button }}
+          </div>
+        {% endform %}
+
+        <div class="product-page__badges">
+          <span class="product-badge">
+            <span class="product-badge__dot"></span>
+            {%- if current_variant.available -%}In stock{%- else -%}Out of stock{%- endif -%}
+          </span>
+          {%- if product.vendor != blank -%}
+            <span class="product-badge">
+              <span class="product-badge__dot"></span>
+              {{ product.vendor }}
+            </span>
+          {%- endif -%}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 {% schema %}
 {

@@ -1,0 +1,58 @@
+{% comment %}
+  Flint & Veil — Cart Drawer
+  File: snippets/cart-drawer.liquid
+  Slide-out cart panel. Opened by the header cart icon (openCartDrawer)
+  and after add-to-cart. Reflects cart state at page load.
+{% endcomment %}
+
+<div class="cart-drawer__overlay"></div>
+
+<aside class="cart-drawer" aria-label="Shopping cart">
+  <div class="cart-drawer__header">
+    <span class="cart-drawer__title">Your Cart</span>
+    <button type="button" class="cart-drawer__close" aria-label="Close cart">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="cart-drawer__items">
+    {%- if cart.item_count > 0 -%}
+      {%- for item in cart.items -%}
+        <div class="cart-drawer__item">
+          <a href="{{ item.url }}" class="cart-drawer__item-image">
+            {%- if item.image -%}
+              <img
+                src="{{ item.image | image_url: width: 160 }}"
+                alt="{{ item.image.alt | escape }}"
+                width="80" height="80" loading="lazy">
+            {%- endif -%}
+          </a>
+          <div class="cart-drawer__item-details">
+            <a href="{{ item.url }}" class="cart-drawer__item-title">{{ item.product.title }}</a>
+            {%- unless item.product.has_only_default_variant -%}
+              <p class="cart-drawer__item-variant">{{ item.variant.title }}</p>
+            {%- endunless -%}
+            <p class="cart-drawer__item-meta">Qty {{ item.quantity }} &middot; {{ item.final_line_price | money }}</p>
+            <a href="{{ item.url_to_remove }}" class="cart-drawer__item-remove">Remove</a>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- else -%}
+      <p class="cart-drawer__empty">Your cart is empty.</p>
+    {%- endif -%}
+  </div>
+
+  {%- if cart.item_count > 0 -%}
+    <div class="cart-drawer__footer">
+      <div class="cart-drawer__subtotal">
+        <span>Subtotal</span>
+        <span>{{ cart.total_price | money }}</span>
+      </div>
+      <a href="{{ routes.cart_url }}" class="btn btn--outline" style="width:100%;margin-bottom:0.5rem;">View Cart</a>
+      <a href="/checkout" class="btn btn--primary" style="width:100%;">Checkout</a>
+    </div>
+  {%- endif -%}
+</aside>

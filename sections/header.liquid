@@ -16,7 +16,7 @@
           <li class="site-nav__item"><a href="/collections/all">Shop</a></li>
           <li class="site-nav__item"><a href="/collections/recovery">Recovery</a></li>
           <li class="site-nav__item"><a href="/collections/supplements">Supplements</a></li>
-          <li class="site-nav__item"><a href="/collections/gear">Gear</a></li>
+          <li class="site-nav__item"><a href="/collections/accessories">Accessories</a></li>
           <li class="site-nav__item"><a href="/pages/our-story">Our Story</a></li>
         </ul>
       </nav>
@@ -28,13 +28,13 @@
             <circle cx="12" cy="7" r="4"/>
           </svg>
         </a>
-        <button class="site-header__icon" aria-label="Search" onclick="document.querySelector('.search-modal').classList.toggle('open')">
+        <button class="site-header__icon" aria-label="Search" onclick="openSearchModal()">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <circle cx="11" cy="11" r="8"/>
             <path d="m21 21-4.35-4.35"/>
           </svg>
         </button>
-        <button class="site-header__icon" aria-label="Cart" onclick="document.querySelector('.cart-drawer').classList.toggle('open'); document.querySelector('.cart-drawer__overlay').classList.toggle('open')">
+        <button class="site-header__icon" aria-label="Cart" onclick="openCartDrawer()">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
             <line x1="3" y1="6" x2="21" y2="6"/>

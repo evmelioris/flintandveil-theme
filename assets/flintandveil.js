@@ -49,11 +49,31 @@ async function updateCartCount() {
 function openCartDrawer() {
   document.querySelector('.cart-drawer')?.classList.add('open');
   document.querySelector('.cart-drawer__overlay')?.classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
 
 function closeCartDrawer() {
   document.querySelector('.cart-drawer')?.classList.remove('open');
   document.querySelector('.cart-drawer__overlay')?.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* --- Search Modal --- */
+function openSearchModal() {
+  const modal = document.querySelector('.search-modal');
+  if (!modal) return;
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  modal.querySelector('.search-modal__input')?.focus();
+}
+
+function closeSearchModal() {
+  const modal = document.querySelector('.search-modal');
+  if (!modal) return;
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
 }
 
 /* --- Product Gallery --- */
@@ -121,4 +141,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelector('.cart-drawer__overlay')?.addEventListener('click', closeCartDrawer);
   document.querySelector('.cart-drawer__close')?.addEventListener('click', closeCartDrawer);
+
+  document.querySelectorAll('[data-search-close]').forEach(el => {
+    el.addEventListener('click', closeSearchModal);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeSearchModal();
+      closeCartDrawer();
+    }
+  });
 });

@@ -56,7 +56,7 @@
         {% form 'product', product %}
           {%- assign current_variant = product.selected_or_first_available_variant -%}
 
-          {%- if product.has_only_default_variant == false -%}
+          {%- if product.variants.size > 1 -%}
             <select name="id" class="product-page__variant">
               {%- for variant in product.variants -%}
                 <option

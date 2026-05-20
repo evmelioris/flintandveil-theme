@@ -40,9 +40,7 @@
             <line x1="3" y1="6" x2="21" y2="6"/>
             <path d="M16 10a4 4 0 0 1-8 0"/>
           </svg>
-          {%- if cart.item_count > 0 -%}
-            <span class="cart-count">{{ cart.item_count }}</span>
-          {%- endif -%}
+          <span class="cart-count"{% if cart.item_count == 0 %} style="display:none"{% endif %}>{{ cart.item_count }}</span>
         </button>
       </div>
 

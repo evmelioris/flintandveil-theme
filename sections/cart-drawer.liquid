@@ -1,8 +1,9 @@
 {% comment %}
   Flint & Veil — Cart Drawer
-  File: snippets/cart-drawer.liquid
+  File: sections/cart-drawer.liquid
   Slide-out cart panel. Opened by the header cart icon (openCartDrawer)
-  and after add-to-cart. Reflects cart state at page load.
+  and after add-to-cart. Defined as a section so it can be re-rendered
+  via Shopify's Section Rendering API (?sections=cart-drawer) on add-to-cart.
 {% endcomment %}
 
 <div class="cart-drawer__overlay"></div>
@@ -56,3 +57,10 @@
     </div>
   {%- endif -%}
 </aside>
+
+{% schema %}
+{
+  "name": "Cart Drawer",
+  "settings": []
+}
+{% endschema %}

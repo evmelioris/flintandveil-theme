@@ -19,7 +19,7 @@ async function addToCart(button) {
     });
 
     if (response.ok) {
-      await updateCartCount();
+      await Promise.all([updateCartCount(), refreshCartDrawer()]);
       openCartDrawer();
       setTimeout(() => {
         button.disabled = false;
@@ -56,6 +56,37 @@ function closeCartDrawer() {
   document.querySelector('.cart-drawer')?.classList.remove('open');
   document.querySelector('.cart-drawer__overlay')?.classList.remove('open');
   document.body.style.overflow = '';
+}
+
+/* Re-render the cart drawer's items + footer from the server so it
+   reflects the current cart immediately after an AJAX add/remove.
+   Uses Shopify's Section Rendering API. */
+async function refreshCartDrawer() {
+  try {
+    const response = await fetch('/?sections=cart-drawer');
+    const data = await response.json();
+    const tmp = document.createElement('div');
+    tmp.innerHTML = data['cart-drawer'] || '';
+
+    const newItems = tmp.querySelector('.cart-drawer__items');
+    const currentItems = document.querySelector('.cart-drawer__items');
+    if (newItems && currentItems) {
+      currentItems.innerHTML = newItems.innerHTML;
+    }
+
+    const drawer = document.querySelector('.cart-drawer');
+    const newFooter = tmp.querySelector('.cart-drawer__footer');
+    const currentFooter = document.querySelector('.cart-drawer__footer');
+    if (newFooter && currentFooter) {
+      currentFooter.replaceWith(newFooter);
+    } else if (newFooter && drawer) {
+      drawer.appendChild(newFooter);
+    } else if (!newFooter && currentFooter) {
+      currentFooter.remove();
+    }
+  } catch (error) {
+    console.error('Refresh cart drawer error:', error);
+  }
 }
 
 /* --- Search Modal --- */

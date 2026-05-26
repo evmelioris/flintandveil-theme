@@ -4,12 +4,16 @@
    ============================================ */
 
 /* --- Cart Functionality --- */
+const ADD_TO_CART_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`;
+const ADD_TO_CART_OK_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>`;
+const ADD_TO_CART_ERR_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
+
 async function addToCart(button) {
   const variantId = button.dataset.productId;
   if (!variantId) return;
 
   button.disabled = true;
-  button.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>`;
+  button.innerHTML = ADD_TO_CART_OK_ICON;
 
   try {
     const response = await fetch(window.routes.cart_add_url, {
@@ -23,12 +27,25 @@ async function addToCart(button) {
       openCartDrawer();
       setTimeout(() => {
         button.disabled = false;
-        button.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`;
+        button.innerHTML = ADD_TO_CART_ICON;
       }, 1500);
+    } else {
+      // Server-side error (sold out, draft product, etc.) — surface it instead of silently failing.
+      const data = await response.json().catch(() => ({}));
+      const message = data.description || data.message || 'Unable to add to cart';
+      console.error('Add to cart error:', message, data);
+      button.innerHTML = ADD_TO_CART_ERR_ICON;
+      button.title = message;
+      setTimeout(() => {
+        button.disabled = false;
+        button.title = '';
+        button.innerHTML = ADD_TO_CART_ICON;
+      }, 2000);
     }
   } catch (error) {
-    console.error('Add to cart error:', error);
+    console.error('Add to cart network error:', error);
     button.disabled = false;
+    button.innerHTML = ADD_TO_CART_ICON;
   }
 }
 
